@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SoundWave – Music Explorer</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+ 
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <i class="fas fa-wave-square"></i>
+      <span>SoundWave</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#home" class="nav-link active" data-section="home">
+        <i class="fas fa-home"></i><span>Home</span>
+      </a>
+      <a href="#search" class="nav-link" data-section="search">
+        <i class="fas fa-search"></i><span>Search</span>
+      </a>
+      <a href="#trending" class="nav-link" data-section="trending">
+        <i class="fas fa-fire"></i><span>Trending</span>
+      </a>
+      <a href="#favorites" class="nav-link" data-section="favorites">
+        <i class="fas fa-heart"></i><span>Favorites</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <p>SoundWave &copy; 2025</p>
+    </div>
+  </aside>
+ 
+  <!-- ===== HAMBURGER (mobile) ===== -->
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <i class="fas fa-bars"></i>
+  </button>
+ 
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+ 
+    <!-- TOP NAVBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="back-btn" id="backBtn" title="Back"><i class="fas fa-chevron-left"></i></button>
+        <button class="back-btn" id="fwdBtn" title="Forward"><i class="fas fa-chevron-right"></i></button>
+      </div>
+      <div class="topbar-right">
+        <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+          <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+        <div class="user-avatar">
+          <i class="fas fa-user"></i>
+        </div>
+      </div>
+    </header>
+ 
+    <!-- ======= HERO SECTION ======= -->
+    <section class="hero-section" id="home">
+      <div class="hero-content">
+        <p class="hero-tag">Discover · Explore · Feel</p>
+        <h1 class="hero-title">Your Universe<br/>of <span class="accent">Sound</span></h1>
+        <p class="hero-sub">Search millions of songs, explore trending tracks, and build your personal collection.</p>
+        <button class="hero-btn" id="heroSearchBtn">
+          <i class="fas fa-headphones"></i> Start Exploring
+        </button>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-disk">
+          <div class="disk-ring ring1"></div>
+          <div class="disk-ring ring2"></div>
+          <div class="disk-ring ring3"></div>
+          <div class="disk-center"><i class="fas fa-music"></i></div>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- ======= SEARCH SECTION ======= -->
+    <section class="search-section" id="search">
+      <h2 class="section-title">Search Music</h2>
+ 
+      <!-- Search Bar -->
+      <div class="search-bar-wrapper">
+        <i class="fas fa-search search-icon"></i>
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="Search songs, artists, albums…"
+          autocomplete="off"
+        />
+        <button class="clear-btn" id="clearBtn" title="Clear"><i class="fas fa-times"></i></button>
+      </div>
+ 
+      <!-- Filters & Sort -->
+      <div class="controls-row">
+        <div class="filter-group">
+          <label for="typeFilter">Type:</label>
+          <select id="typeFilter" class="ctrl-select">
+            <option value="all">All</option>
+            <option value="song">Songs</option>
+            <option value="album">Albums</option>
+            <option value="artist">Artists</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="explicitFilter">Content:</label>
+          <select id="explicitFilter" class="ctrl-select">
+            <option value="all">All</option>
+            <option value="clean">Clean</option>
+            <option value="explicit">Explicit</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="sortSelect">Sort:</label>
+          <select id="sortSelect" class="ctrl-select">
+            <option value="default">Default</option>
+            <option value="az">Name A → Z</option>
+            <option value="za">Name Z → A</option>
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+          </select>
+        </div>
+      </div>
+ 
+      <!-- Loading Spinner -->
+      <div class="spinner-wrapper" id="searchSpinner">
+        <div class="spinner"></div>
+        <p>Fetching tracks…</p>
+      </div>
+ 
+      <!-- Error / Empty state -->
+      <div class="empty-state" id="searchEmptyState">
+        <i class="fas fa-satellite-dish"></i>
+        <p id="emptyMsg">Type something to search for music!</p>
+      </div>
+ 
+      <!-- Results Grid -->
+      <div class="cards-grid" id="searchResults"></div>
+ 
+      <!-- Load More -->
+      <div class="load-more-wrapper" id="loadMoreWrapper">
+        <button class="load-more-btn" id="loadMoreBtn">Load More <i class="fas fa-chevron-down"></i></button>
+      </div>
+    </section>
+ 
+    <!-- ======= TRENDING SECTION ======= -->
+    <section class="trending-section" id="trending">
+      <h2 class="section-title"><i class="fas fa-fire accent"></i> Trending Tracks</h2>
+      <p class="section-sub">Top tracks from Last.fm's global charts</p>
+ 
+      <div class="spinner-wrapper" id="trendingSpinner">
+        <div class="spinner"></div>
+        <p>Loading trending tracks…</p>
+      </div>
+ 
+      <div class="empty-state" id="trendingEmptyState">
+        <i class="fas fa-satellite-dish"></i>
+        <p>Could not load trending tracks. Check your API key.</p>
+      </div>
+ 
+      <div class="cards-grid" id="trendingResults"></div>
+    </section>
+ 
+    <!-- ======= FAVORITES SECTION ======= -->
+    <section class="favorites-section" id="favorites">
+      <h2 class="section-title"><i class="fas fa-heart accent"></i> My Favorites</h2>
+      <p class="section-sub">Tracks you've loved</p>
+ 
+      <div class="empty-state" id="favEmptyState">
+        <i class="fas fa-heart-broken"></i>
+        <p>No favorites yet. Hit the ❤ on any track!</p>
+      </div>
+ 
+      <div class="cards-grid" id="favResults"></div>
+    </section>
+ 
+    <!-- ======= FOOTER PLAYER UI ======= -->
+    <footer class="player-bar">
+      <div class="player-track">
+        <div class="player-thumb" id="playerThumb">
+          <i class="fas fa-music"></i>
+        </div>
+        <div class="player-info">
+          <span class="player-name" id="playerName">No track selected</span>
+          <span class="player-artist" id="playerArtist">—</span>
+        </div>
+        <button class="fav-btn-player" id="playerFavBtn" title="Favorite">
+          <i class="far fa-heart"></i>
+        </button>
+      </div>
+      <div class="player-controls">
+        <button class="ctrl-btn"><i class="fas fa-random"></i></button>
+        <button class="ctrl-btn"><i class="fas fa-step-backward"></i></button>
+        <button class="ctrl-btn play-btn" id="playBtn"><i class="fas fa-play"></i></button>
+        <button class="ctrl-btn"><i class="fas fa-step-forward"></i></button>
+        <button class="ctrl-btn"><i class="fas fa-redo"></i></button>
+      </div>
+      <div class="player-volume">
+        <i class="fas fa-volume-up"></i>
+        <input type="range" class="volume-slider" min="0" max="100" value="70" />
+      </div>
+      <!-- Hidden audio element for preview -->
+      <audio id="audioPlayer"></audio>
+    </footer>
+ 
+  </main>
+ 
+  <!-- Sidebar overlay for mobile -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+ 
+  <script src="script.js"></script>
+</body>
+</html>
+ 
