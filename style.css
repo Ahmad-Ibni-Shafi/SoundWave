@@ -844,7 +844,7 @@ input, select {
 }
 
 .volume-slider {
-  -webkit-appearance: none;
+  /* -webkit-appearance: none; */
   width: 90px;
   height: 4px;
   border-radius: 2px;
